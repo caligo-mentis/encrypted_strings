@@ -150,6 +150,10 @@ module EncryptedStrings
       !@private_key.nil?
     end
     
+    def can_decrypt?
+      private?
+    end
+    
     private
       # Loads the private key from the configured file
       def load_private_key
