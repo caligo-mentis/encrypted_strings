@@ -181,3 +181,26 @@ class AsymmetricCipherWithEncryptedPrivateKeyTest < Test::Unit::TestCase
     assert_equal 'test', @asymmetric_cipher.decrypt("HbEh0Hwri26S7SWYqO26DBbzfhR1h/0pXYLjSKUpxF5DOaOCtD9oRN748+Na\nrfNaVN5Eg7RUhbRFZE+UnNHo6Q==\n")
   end
 end
+
+class AsymmetricCipherWithPlainPrivateKeyTest < Test::Unit::TestCase
+  def setup
+    @asymmetric_cipher = EncryptedStrings::AsymmetricCipher.new(:public_key_file => File.dirname(__FILE__) + '/keys/public')
+    @asymmetric_cipher.private_key = File.read(File.dirname(__FILE__) + '/keys/private')
+  end
+  
+  def test_should_be_public
+    assert @asymmetric_cipher.public?
+  end
+  
+  def test_should_be_private
+    assert @asymmetric_cipher.private?
+  end
+  
+  def test_should_be_able_to_encrypt
+    assert_equal 90, @asymmetric_cipher.encrypt('test').length
+  end
+  
+  def test_should_be_able_to_decrypt
+    assert_equal 'test', @asymmetric_cipher.decrypt("HbEh0Hwri26S7SWYqO26DBbzfhR1h/0pXYLjSKUpxF5DOaOCtD9oRN748+Na\nrfNaVN5Eg7RUhbRFZE+UnNHo6Q==\n")
+  end
+end

@@ -119,6 +119,11 @@ module EncryptedStrings
       private_rsa.private_decrypt(decrypted_data)
     end
     
+    # Sets the private key
+    def private_key=(key)
+      @private_key = key
+    end
+    
     # Sets the location of the private key and loads it
     def private_key_file=(file)
       @private_key_file = file and load_private_key
